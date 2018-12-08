@@ -1,0 +1,54 @@
+﻿@model PMS.ViewModels.CreateOrEditViewModel
+@{
+    ViewBag.Title = "CreateOrEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col">
+        <h2>CreateOrEdit</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @using ( Html.BeginForm("CreateOrEdit","People", FormMethod.Post) )
+        {
+
+            <div class="form-row">
+                <div class="col-6">
+                    @Html.TextBoxFor(item => item.Person.Name, new { @class = "form-control", placeholder = "Enter Name" })
+                </div>
+                <div class="col-6">
+                    @Html.TextBoxFor(item => item.Person.Mobile, new { @class = "form-control", placeholder = "Enter Mobile Nuumber" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    @Html.DropDownListFor(item => item.Person.RelationTypeId, new SelectList(Model.RelationTypes, "Id", "Name"), new { @class = "form-control" })
+                </div>
+                <div class="col-6">
+                    @Html.TextBoxFor(item => item.Person.Email, new { @class = "form-control", placeholder = "Enter Email" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    @Html.TextBoxFor(item => item.Person.Address, new { @class = "form-control", placeholder = "Enter Stree Address" })
+                </div>
+                <div class="col-3">
+                    @Html.TextBoxFor(item => item.Person.State, new { @class = "form-control", placeholder = "Enter State" })
+                </div>
+
+                <div class="col-3">
+                    @Html.TextBoxFor(item => item.Person.Country, new { @class = "form-control", placeholder = "Enter Country" })
+                </div>
+            </div>
+            @Html.HiddenFor(item => item.Person.Id)
+            <button class="btn btn-danger mt-4" type="submit"> Save / Update </button>
+
+         }
+        </div>
+</div>
+

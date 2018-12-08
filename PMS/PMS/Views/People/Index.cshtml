@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PMS.Models.Person>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col">
+        <h2 class="text-center">Welcome To People Mangement System</h2>
+    </div>
+</div>
+
+
+<div class="row mb-5 mt-5">
+    <div class="col">
+        @Html.ActionLink("Create New Entry", "CreateOrEdit", "People", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @{ var cssclass = Model.Count() == 0 ? "lead" : ""; }
+
+        @if (Model.Count() == 0)
+        {
+            <p class="@cssclass">No Relations Entry Yet</p>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>Person Name</th>
+                    <th>Relation With Person</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(@item.Name, "CreateOrEdit", "People", new { id= item.Id }, new { @class = "btn btn-link" })</td>
+                        <td>@item.RelationType.Name</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>

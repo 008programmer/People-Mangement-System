@@ -20,6 +20,12 @@ namespace PMS.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<Person> People { get; set; }
+
+        //public DbSet<PeopleRelation> PersonRelations { get; set; }
+
+        public DbSet<RelationType> relationTypes { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
