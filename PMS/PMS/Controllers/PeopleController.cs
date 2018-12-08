@@ -17,7 +17,7 @@ namespace PMS.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();   
+            _context.Dispose();
         }
 
 
@@ -26,7 +26,7 @@ namespace PMS.Controllers
             var list = new List<Person>();
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                list = context.People.Include( tt => tt.RelationType ).ToList();
+                list = context.People.Include(tt => tt.RelationType).ToList();
             }
             return View(list);
         }
@@ -36,42 +36,41 @@ namespace PMS.Controllers
 
         public ActionResult CreateOrEdit(int? id)
         {
-            var model = new CreateOrEditViewModel();
-            if(id.HasValue)
-            {
-                model = new CreateOrEditViewModel
-                {
-                    Person = _context.People.SingleOrDefault( item => item.Id == id ),
-                    RelationTypes = _context.relationTypes.ToList()
-                };
+           
+            var person = (id.HasValue)
+                ? _context.People.SingleOrDefault(item => item.Id == id)
+                : new Person();
 
-            }
-            else
+            var model = new CreateOrEditViewModel
             {
-                model = new CreateOrEditViewModel
-                {
-                    Person = null,
-                    RelationTypes = _context.relationTypes.ToList()
-                };
-            }
-            
+                Person = person,
+                RelationTypes = _context.relationTypes.ToList()
+            };
+
+
             return View(model);
         }
 
 
 
-        [HttpPost]
+        [HttpPost][ValidateAntiForgeryToken]
         public ActionResult CreateOrEdit(CreateOrEditViewModel viewModel)
         {
 
-            if (viewModel.Person.Id == 0 )
+            if (!ModelState.IsValid)
             {
-               
+                viewModel.RelationTypes = _context.relationTypes.ToList();
+                return View("CreateOrEdit", viewModel);
+
+            }
+            if (viewModel.Person.Id == 0)
+            {
+
                 _context.People.Add(viewModel.Person);
-                
+
             }
             else
-                {
+            {
                 _context.Entry(viewModel.Person).State = System.Data.Entity.EntityState.Modified;
 
             }

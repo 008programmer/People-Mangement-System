@@ -20,17 +20,20 @@
             <div class="form-row">
                 <div class="col-6">
                     @Html.TextBoxFor(item => item.Person.Name, new { @class = "form-control", placeholder = "Enter Name" })
+                    @Html.ValidationMessageFor( item => item.Person.Name)
                 </div>
                 <div class="col-6">
                     @Html.TextBoxFor(item => item.Person.Mobile, new { @class = "form-control", placeholder = "Enter Mobile Nuumber" })
+                    @Html.ValidationMessageFor(item => item.Person.Mobile)
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-6">
-                    @Html.DropDownListFor(item => item.Person.RelationTypeId, new SelectList(Model.RelationTypes, "Id", "Name"), new { @class = "form-control" })
+                    @Html.DropDownListFor(item => item.Person.RelationTypeId, new SelectList(Model.RelationTypes, "Id", "Name"),"select Rel ation", new { @class = "form-control" })
                 </div>
                 <div class="col-6">
                     @Html.TextBoxFor(item => item.Person.Email, new { @class = "form-control", placeholder = "Enter Email" })
+                    @Html.ValidationMessageFor(item => item.Person.Email)
                 </div>
             </div>
             <div class="form-row">
@@ -46,9 +49,15 @@
                 </div>
             </div>
             @Html.HiddenFor(item => item.Person.Id)
+            @Html.AntiForgeryToken()
             <button class="btn btn-danger mt-4" type="submit"> Save / Update </button>
 
          }
         </div>
 </div>
 
+@section scripts{
+     @Scripts.Render("~/bundles/jqueryval");
+
+
+    }
