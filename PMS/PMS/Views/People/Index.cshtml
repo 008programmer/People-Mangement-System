@@ -26,19 +26,22 @@
         }
         else
         {
-            <table class="table">
-                <tr>
-                    <th>Person Name</th>
-                    <th>Relation With Person</th>
-                </tr>
-                @foreach (var item in Model)
-                {
+            <div class="table-responsive shadow shadow-lg">
+                <table class="table">
                     <tr>
-                        <td>@Html.ActionLink(@item.Name, "CreateOrEdit", "People", new { id= item.Id }, new { @class = "btn btn-link" })</td>
-                        <td>@item.RelationType.Name</td>
+                        <th>Person Name</th>
+                        <th>Relation With Person</th>
                     </tr>
-                }
-            </table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(@item.Name, "CreateOrEdit", "People", new { id = item.Id }, new { @class = "btn btn-link" })</td>
+                            <td>@item.RelationType.Name</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
         }
     </div>
-</div>
+        </div>
